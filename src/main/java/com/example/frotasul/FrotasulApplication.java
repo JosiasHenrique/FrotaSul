@@ -1,5 +1,6 @@
 package com.example.frotasul;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,15 @@ import com.example.frotasul.entities.Caminhao;
 import com.example.frotasul.entities.Carreta;
 import com.example.frotasul.entities.Motorista;
 import com.example.frotasul.entities.Pneu;
+import com.example.frotasul.entities.Viagem;
 import com.example.frotasul.enums.CondicaoPneu;
+import com.example.frotasul.enums.StatusViagem;
 import com.example.frotasul.enums.TipoPneu;
 import com.example.frotasul.repositories.CaminhaoRepository;
 import com.example.frotasul.repositories.CarretaRepository;
 import com.example.frotasul.repositories.MotoristaRepository;
 import com.example.frotasul.repositories.PneuRepository;
+import com.example.frotasul.repositories.ViagemRepository;
 
 @SpringBootApplication
 public class FrotasulApplication implements CommandLineRunner {
@@ -32,6 +36,9 @@ public class FrotasulApplication implements CommandLineRunner {
 	
 	@Autowired
 	private CaminhaoRepository caminhaoRepository;
+	
+	@Autowired
+	private ViagemRepository viagemRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(FrotasulApplication.class, args);
@@ -66,7 +73,12 @@ public class FrotasulApplication implements CommandLineRunner {
 		camin2.getPneusCaminhao().add(pn4);
 		caminhaoRepository.saveAll(Arrays.asList(camin1, camin2));
 		
-	
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Viagem via1 = new Viagem(null, sdf.parse("18/07/2021"), "Vargem Grande do Sul - SP",
+				"Paraná - PR", 587451, camin1, 3000.0, StatusViagem.VIAJANDO);
+		via1.setKmChegada(587861);
+		
+		viagemRepository.saveAll(Arrays.asList(via1));
 		
 		
 	}

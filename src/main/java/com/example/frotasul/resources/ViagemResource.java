@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.frotasul.entities.Viagem;
-import com.example.frotasul.repositories.ViagemRepository;
+import com.example.frotasul.entities.Caminhao;
+import com.example.frotasul.repositories.CaminhaoRepository;
 
 @RestController
-@RequestMapping(value = "/viagens")
-public class CaminhaoResource {
+@RequestMapping(value = "/caminhoes")
+public class ViagemResource {
 
 	@Autowired
-	private ViagemRepository repository;
+	private CaminhaoRepository repository;
 	
 	@GetMapping(value = "/{id}")
 	
-	public ResponseEntity<Viagem> findById(@PathVariable Long id) {
-		Viagem obj = repository.findById(id).get();
+	public ResponseEntity<Caminhao> findById(@PathVariable Long id) {
+		Caminhao obj = repository.findById(id).get();
 		return ResponseEntity.ok(obj);
 	}
 }
