@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.frotasul.entities.Abastecimento;
 import com.example.frotasul.entities.Caminhao;
 import com.example.frotasul.entities.Carreta;
 import com.example.frotasul.entities.Motorista;
@@ -16,6 +17,7 @@ import com.example.frotasul.entities.Viagem;
 import com.example.frotasul.enums.CondicaoPneu;
 import com.example.frotasul.enums.StatusViagem;
 import com.example.frotasul.enums.TipoPneu;
+import com.example.frotasul.repositories.AbastecimentoRepository;
 import com.example.frotasul.repositories.CaminhaoRepository;
 import com.example.frotasul.repositories.CarretaRepository;
 import com.example.frotasul.repositories.MotoristaRepository;
@@ -36,6 +38,9 @@ public class FrotasulApplication implements CommandLineRunner {
 	
 	@Autowired
 	private CaminhaoRepository caminhaoRepository;
+	
+	@Autowired
+	private AbastecimentoRepository abastecimentoRepository;
 	
 	@Autowired
 	private ViagemRepository viagemRepository;
@@ -74,9 +79,19 @@ public class FrotasulApplication implements CommandLineRunner {
 		caminhaoRepository.saveAll(Arrays.asList(camin1, camin2));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		Abastecimento abast1 = new Abastecimento(null, sdf.parse("17/07/2021"), "Rede Dom Pedro", 586801, 586990, 402.0, 1700.87);
+		Abastecimento abast2 = new Abastecimento(null, sdf.parse("19/07/2021"), "Jaguariaiva", 586990, 587706, 202.0, 850.17);
+		Abastecimento abast3 = new Abastecimento(null, sdf.parse("21/07/2021"), "Posto Alpino II", 587706, 588310, 452.0, 980.06);
+		
+		abastecimentoRepository.saveAll(Arrays.asList(abast1, abast2, abast3));
+		
 		Viagem via1 = new Viagem(null, sdf.parse("18/07/2021"), "Vargem Grande do Sul - SP",
 				"Paraná - PR", 587451, camin1, 3000.0, StatusViagem.VIAJANDO);
 		via1.setKmChegada(587861);
+		
+		via1.getAbastecimentos().add(abast1);
+		via1.getAbastecimentos().add(abast2);
 		
 		viagemRepository.saveAll(Arrays.asList(via1));
 		
