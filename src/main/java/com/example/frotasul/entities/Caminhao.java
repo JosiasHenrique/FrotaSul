@@ -30,6 +30,12 @@ public class Caminhao implements Serializable {
 	@OneToOne
 	private Motorista motorista;
 	
+	@OneToMany(mappedBy = "caminhao")
+	private List<Abastecimento> abastecimentos = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "caminhao")
+	private List<Viagem> viagens = new ArrayList<>();
+	
 	public Caminhao() {
 		
 	}
@@ -85,6 +91,13 @@ public class Caminhao implements Serializable {
 
 	public List<Pneu> getPneusCaminhao() {
 		return pneusCaminhao;
+	}
+	
+	public List<Abastecimento> getAbastecimentos() {
+		return abastecimentos;
+	}
+	public List<Viagem> getViagens() {
+		return viagens;
 	}
 	
 }

@@ -70,7 +70,7 @@ public class FrotasulApplication implements CommandLineRunner {
 		car2.getPneus().add(pn2);
 		carretaRepository.saveAll(Arrays.asList(car1, car2));
 		
-		
+	
 		
 		Caminhao camin1 = new Caminhao(null, "FCI-1J08", "IVECO", car1, mot1);
 		Caminhao camin2 = new Caminhao(null, "GGE-3802", "MERCEDEZ", car2, mot2);
@@ -79,19 +79,19 @@ public class FrotasulApplication implements CommandLineRunner {
 		caminhaoRepository.saveAll(Arrays.asList(camin1, camin2));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		
 		Abastecimento abast1 = new Abastecimento(null, sdf.parse("17/07/2021"), "Rede Dom Pedro", 586801, 586990, 402.0, 1700.87);
 		Abastecimento abast2 = new Abastecimento(null, sdf.parse("19/07/2021"), "Jaguariaiva", 586990, 587706, 202.0, 850.17);
 		Abastecimento abast3 = new Abastecimento(null, sdf.parse("21/07/2021"), "Posto Alpino II", 587706, 588310, 452.0, 980.06);
+		
+		abast1.setCaminhao(camin1);
+		abast2.setCaminhao(camin1);
+		
 		
 		abastecimentoRepository.saveAll(Arrays.asList(abast1, abast2, abast3));
 		
 		Viagem via1 = new Viagem(null, sdf.parse("18/07/2021"), "Vargem Grande do Sul - SP",
 				"Paraná - PR", 587451, camin1, 3000.0, StatusViagem.VIAJANDO);
 		via1.setKmChegada(587861);
-		
-		via1.getAbastecimentos().add(abast1);
-		via1.getAbastecimentos().add(abast2);
 		
 		viagemRepository.saveAll(Arrays.asList(via1));
 		

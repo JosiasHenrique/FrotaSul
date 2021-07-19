@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Abastecimento implements Serializable {
@@ -19,6 +23,11 @@ public class Abastecimento implements Serializable {
 	private String posto;
 	private Integer kmAnt, kmAtual;
 	private Double qtdLt, valorComb;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "caminhao_id")
+	private Caminhao caminhao;
 
 	public Abastecimento() {}
 
@@ -93,5 +102,13 @@ public class Abastecimento implements Serializable {
 	public Double getMedia() {
 		double media = (this.kmAtual - this.kmAnt) / this.qtdLt;
 		return media;
+	}
+
+	public Caminhao getCaminhao() {
+		return caminhao;
+	}
+
+	public void setCaminhao(Caminhao caminhao) {
+		this.caminhao = caminhao;
 	}
 }

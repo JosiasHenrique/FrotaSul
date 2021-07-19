@@ -1,18 +1,17 @@
 package com.example.frotasul.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.example.frotasul.enums.StatusViagem;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Viagem implements Serializable{
@@ -25,14 +24,13 @@ public class Viagem implements Serializable{
 	private String origem, destino;
 	private Integer kmSaida, kmChegada;
 	
+	@JsonIgnore
 	@ManyToOne
+	@JoinColumn(name = "caminhao_id")
 	private Caminhao caminhao;
 	private String numDanfe, numCte;
 	private Double valorFrete;
 	private StatusViagem status;
-	
-	@OneToMany
-	private List<Abastecimento> abastecimentos = new ArrayList<>();
 	
 	public Viagem() {
 		
@@ -144,7 +142,4 @@ public class Viagem implements Serializable{
 		return kmPercorrido;
 	}
 
-	public List<Abastecimento> getAbastecimentos() {
-		return abastecimentos;
-	}
 }
